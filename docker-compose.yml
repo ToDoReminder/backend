@@ -7,9 +7,10 @@ services:
       dockerfile: Dockerfile
     restart: always
      environment:
-      - PASSWORD
-      - USERNAME
-    
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql.ardijorganxhi.dev/todoreminder
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=dc60d6c5ed27ef1a
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       
 
     volumes:
