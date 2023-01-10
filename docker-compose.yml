@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-   
+
     volumes:
       - storage_dev:/app/storage
     ports:
