@@ -1,0 +1,16 @@
+version: '2'
+services:
+  api:
+    container_name: todoreminder
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+   
+    volumes:
+      - storage_dev:/app/storage
+    ports:
+      - "8080:8080"
+
+volumes:
+  storage_dev:
