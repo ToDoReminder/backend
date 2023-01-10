@@ -9,9 +9,7 @@ services:
      environment:
       - POSTGRES_USER: postgres
       - POSTGRES_PASSWORD: dc60d6c5ed27ef1a
-      - URI
-      - SMTP_PASSWORD
-      - BASE_URL
+      
 
     volumes:
       - storage_dev:/app/storage
