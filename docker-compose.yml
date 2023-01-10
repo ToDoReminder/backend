@@ -7,8 +7,9 @@ services:
       dockerfile: Dockerfile
     restart: always
      environment:
-      - POSTGRES_USER: postgres
-      - POSTGRES_PASSWORD: dc60d6c5ed27ef1a
+      - PASSWORD
+      - USERNAME
+    
       
 
     volumes:
