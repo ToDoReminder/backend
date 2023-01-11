@@ -1,15 +1,14 @@
 package com.example.todoreminder.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "categories")
@@ -21,12 +20,9 @@ public class Category {
     private long categoryid;
     @Column(name = "title", nullable = false)
     private String title;
-
-
     @ManyToOne
     @JoinColumn(name = "userid")
     private User user;
-
     @OneToMany(mappedBy = "taskid")
     private List<Task> task;
 }
