@@ -6,13 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql.ardijorganxhi.dev/todoreminder
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=dc60d6c5ed27ef1a
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      
-
+    environment:
+      - URL
+      - USERNAME
+      - PASSWORD
     volumes:
       - storage_dev:/app/storage
     ports:
