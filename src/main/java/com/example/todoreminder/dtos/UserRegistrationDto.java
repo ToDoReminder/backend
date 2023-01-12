@@ -1,29 +1,18 @@
-package com.example.todoreminder.models;
+package com.example.todoreminder.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-@Entity
-public class User {
+public class UserRegistrationDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userid", nullable = false)
-    private long userid;
     private String name;
     private String surname;
-    @Column(unique = true)
     private String email;
-    @Column(name = "date_of_birth")
-    @JsonFormat(pattern = "yyyy-mm-dd")
     private LocalDate dateOfBirth;
     private String password;
 
@@ -66,13 +55,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-    @OneToMany(mappedBy = "categoryid")
-    private List<Category> category;
-    @OneToMany(mappedBy = "taskid")
-    private List<Task> task;
-
-
 }
