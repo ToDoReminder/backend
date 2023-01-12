@@ -3,7 +3,9 @@ RUN apt update && apt -y upgrade
 RUN apt install -y openjdk-17-jdk maven
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
-
+ENV URL=${URL}
+ENV USERNAME=${USERNAME}
+ENV PASSWORD=${PASSWORD}
 WORKDIR /app
 # Copy app files
 COPY . .
