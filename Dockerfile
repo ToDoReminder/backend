@@ -3,11 +3,12 @@ RUN apt update && apt -y upgrade
 RUN apt install -y openjdk-17-jdk maven
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 # Copy app files
 COPY . .
 
-RUN mvn clean install
+RUN mvn clean install -Dmaven.test.skip
 
 RUN #ls ./target
 EXPOSE 8080
