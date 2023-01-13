@@ -7,9 +7,9 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - URL
-      - USERNAME
-      - PASSWORD
+      - URL: ${URL}
+      - USERNAME: ${USERNAME}
+      - PASSWORD: ${PASSWORD}
     volumes:
       - storage_dev:/app/storage
     ports:
