@@ -18,13 +18,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userid", nullable = false)
     private long userid;
+    @Column(name = "user_name", nullable = false)
     private String name;
+    @Column(name = "user_surname", nullable = false)
     private String surname;
-    @Column(unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth", nullable = false)
     @JsonFormat(pattern = "yyyy-mm-dd")
     private LocalDate dateOfBirth;
+    @Column(name = "password", nullable = false)
     private String password;
 
     public String getName() {
