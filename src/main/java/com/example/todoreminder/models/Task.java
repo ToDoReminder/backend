@@ -21,7 +21,7 @@ public class Task {
     private String title;
     private LocalDate createdDate;
     private LocalTime createdTime;
-    @Column(name = "isCompleted", nullable = false)
+    @Column(name = "is_completed", nullable = false)
     private boolean isCompleted;
     @OneToOne
     @JoinColumn(name = "categoryid")
