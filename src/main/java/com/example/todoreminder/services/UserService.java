@@ -1,12 +1,17 @@
 package com.example.todoreminder.services;
 
 import com.example.todoreminder.config.security.PasswordEncoder;
+import com.example.todoreminder.dtos.UserLoginDto;
 import com.example.todoreminder.dtos.UserRegistrationDto;
 import com.example.todoreminder.mappers.UserMapper;
 import com.example.todoreminder.models.User;
 import com.example.todoreminder.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
 
 @Service
 public class UserService {
@@ -21,25 +26,36 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public void login(UserLoginDto userLoginDto) throws Exception{
+        try {
+            findByEmail(userLoginDto.getEmail());
+
+        }
+        catch(Exception e){
+         throw new UsernameNotFoundException("User cannot found in the database");
+        }
+
+    }
 
 
 
 
-    public void register(UserRegistrationDto registrationDto){
 
-     User user = new User();
+    public void register(UserRegistrationDto registrationDto) {
 
-     user.setName(registrationDto.getName());
-     user.setSurname(registrationDto.getSurname());
-     user.setEmail(registrationDto.getEmail());
-     user.setDateOfBirth(registrationDto.getDateOfBirth());
-     user.setPassword(passwordEncoder.bCryptPasswordEncoder().encode(registrationDto.getPassword()));
+        User user = new User();
 
-     userRepository.save(user);
+        user.setName(registrationDto.getName());
+        user.setSurname(registrationDto.getSurname());
+        user.setEmail(registrationDto.getEmail());
+        user.setDateOfBirth(registrationDto.getDateOfBirth());
+        user.setPassword(passwordEncoder.bCryptPasswordEncoder().encode(registrationDto.getPassword()));
 
-
-
-
+        userRepository.save(user);
 
 
     }

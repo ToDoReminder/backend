@@ -1,6 +1,7 @@
 package com.example.todoreminder.controllers;
 
 
+import com.example.todoreminder.dtos.UserLoginDto;
 import com.example.todoreminder.dtos.UserRegistrationDto;
 import com.example.todoreminder.models.User;
 import com.example.todoreminder.services.UserService;
@@ -27,6 +28,12 @@ public class UserController {
         userService.register(registrationDto);
         return ResponseEntity.ok("User is registered!");
 
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserLoginDto userLoginDto) throws Exception{
+        userService.login(userLoginDto);
+        return ResponseEntity.ok("user is logged in");
     }
 
 
