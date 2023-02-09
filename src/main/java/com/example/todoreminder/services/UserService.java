@@ -1,5 +1,6 @@
 package com.example.todoreminder.services;
 
+import com.example.todoreminder.config.security.PasswordEncoder;
 import com.example.todoreminder.dtos.UserLoginDto;
 import com.example.todoreminder.dtos.UserRegistrationDto;
 import com.example.todoreminder.models.User;
@@ -9,31 +10,34 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
 
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
 
 
-    public UserService(UserRepository userRepository, AuthenticationManager authenticationManager) {
+    public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
 
         this.userRepository = userRepository;
 
         this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public void findByEmail(String email) throws Exception {
-        try{
-             userRepository.findByEmail(email);
-        } catch(Exception e){
-            throw new Exception("User not found!");
-        }
+    public User findByEmail(String email){
+
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(""));
+
     }
 
 
@@ -67,5 +71,10 @@ public class UserService {
             throw new Exception("Bad Credentials");
 
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return findByEmail(s);
     }
 }

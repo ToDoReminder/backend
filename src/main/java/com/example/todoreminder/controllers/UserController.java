@@ -6,7 +6,7 @@ import com.example.todoreminder.dtos.UserRegistrationDto;
 import com.example.todoreminder.models.User;
 import com.example.todoreminder.services.UserService;
 import com.sun.net.httpserver.Authenticator;
-import jakarta.servlet.http.HttpServletRequestWrapper;
+
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
