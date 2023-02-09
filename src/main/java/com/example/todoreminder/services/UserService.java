@@ -21,16 +21,15 @@ public class UserService implements UserDetailsService {
 
 
     private final UserRepository userRepository;
-    private final AuthenticationManager authenticationManager;
+
     private final PasswordEncoder passwordEncoder;
 
 
 
-    public UserService(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 
         this.userRepository = userRepository;
 
-        this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -63,14 +62,7 @@ public class UserService implements UserDetailsService {
 
     public void login(UserLoginDto userLoginDto) throws Exception{
 
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLoginDto.getEmail(), userLoginDto.getPassword()));
-        } catch(DisabledException e){
-            throw new Exception("Disabled Exception");
-        } catch (BadCredentialsException e){
-            throw new Exception("Bad Credentials");
 
-        }
     }
 
     @Override
