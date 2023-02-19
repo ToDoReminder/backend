@@ -1,40 +1,33 @@
-package com.example.todoreminder.config.security;
+package com.example.todoreminder.config;
 
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+import com.example.todoreminder.config.security.JwtTokenUtility;
 import com.example.todoreminder.models.User;
 import com.example.todoreminder.services.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 @AllArgsConstructor
 @Component
-public class JwtFilter extends OncePerRequestFilter {
+public class CustomRequestFilter extends OncePerRequestFilter {
 
-    private final Logger logger =  LoggerFactory.getLogger(getClass());
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private JwtTokenUtility jwtTokenUtility;
-
+    private final JwtTokenUtility jwtTokenUtility;
+    private final UserService userService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, javax.servlet.http.HttpServletResponse response, javax.servlet.FilterChain filterChain) throws IOException, ServletException {
 
-        final String requestTokenHeader = httpServletRequest.getHeader("Authorization");
+        final String requestTokenHeader = request.getHeader("Authorization");
 
         String username = null;
         String jwtToken = null;
@@ -42,7 +35,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
-                username = jwtTokenUtility.getEmailFromToken(jwtToken);
+                username = jwtTokenUtility.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
                 logger.error("Token Parse Error!");
             } catch (ExpiredJwtException e) {
@@ -58,9 +51,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 if (jwtTokenUtility.validateToken(jwtToken, user)) {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                            user, null, user.getAuthorities());
+                            user, user.getAuthorities());
                     usernamePasswordAuthenticationToken
-                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                     logger.info("jwt(" + username + ") -> authenticated(true)");
                 }
@@ -68,6 +61,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 logger.error("jwt(" + username + ") -> authenticated(false) \n\t - Exception:" + e.getMessage());
             }
         }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.doFilter(request, response);
+
     }
 }

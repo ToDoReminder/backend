@@ -1,11 +1,8 @@
-package com.example.todoreminder.config.security;
+package com.example.todoreminder.config;
 
 import com.example.todoreminder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,30 +14,30 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
-    private final JwtFilter jwtFilter;
-    private final JwtAuthEntryPoint jwtAuthEntryPoint;
     private final PasswordEncoder passwordEncoder;
+    private final JwtAuthEntryPoint jwtAuthEntryPoint;
+    private final CustomRequestFilter customRequestFilter;
 
-
-    public SecurityConfiguration(UserService userService, JwtFilter jwtFilter, JwtAuthEntryPoint jwtAuthEntryPoint, PasswordEncoder passwordEncoder) {
+    public SecurityConfiguration(UserService userService, PasswordEncoder passwordEncoder, JwtAuthEntryPoint jwtAuthEntryPoint, CustomRequestFilter customRequestFilter) {
         this.userService = userService;
-        this.jwtFilter = jwtFilter;
-        this.jwtAuthEntryPoint = jwtAuthEntryPoint;
         this.passwordEncoder = passwordEncoder;
+        this.jwtAuthEntryPoint = jwtAuthEntryPoint;
+        this.customRequestFilter = customRequestFilter;
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable().authorizeRequests().antMatchers("/auth/**", "/**").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll().anyRequest().authenticated().and()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        ;
+        http.addFilterBefore(customRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Autowired
@@ -64,4 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
+
 }

@@ -14,12 +14,13 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
 @Entity
-public class User implements UserDetailsService, UserDetails {
+@Getter
+@Setter
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,45 +38,15 @@ public class User implements UserDetailsService, UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 
     @Override
     public String getUsername() {
         return email;
+    }
+
+    @Override
+    public String getPassword(){
+        return password;
     }
 
     @Override
@@ -90,7 +61,7 @@ public class User implements UserDetailsService, UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
@@ -98,9 +69,6 @@ public class User implements UserDetailsService, UserDetails {
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 
 
@@ -115,8 +83,5 @@ public class User implements UserDetailsService, UserDetails {
         return List.of(new SimpleGrantedAuthority("USER"));
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
-    }
+
 }

@@ -23,18 +23,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserRegistrationDto registrationDto) {
-        userService.register(registrationDto);
-        return ResponseEntity.ok("User is registered!");
 
-    }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginDto userLoginDto) throws Exception{
-        userService.login(userLoginDto);
-        return ResponseEntity.ok("user is logged in");
-    }
+
 
 
 }
