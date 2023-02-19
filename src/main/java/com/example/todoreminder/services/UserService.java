@@ -1,6 +1,6 @@
 package com.example.todoreminder.services;
 
-import com.example.todoreminder.config.security.PasswordEncoder;
+import com.example.todoreminder.config.PasswordEncoder;
 import com.example.todoreminder.dtos.UserLoginDto;
 import com.example.todoreminder.dtos.UserRegistrationDto;
 import com.example.todoreminder.models.User;
@@ -33,40 +33,13 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User findByEmail(String email){
-
+    public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(""));
-
     }
 
-
-
-
-
-
-    public void register(UserRegistrationDto registrationDto) {
-
-        User user = new User();
-
-        user.setName(registrationDto.getName());
-        user.setSurname(registrationDto.getSurname());
-        user.setEmail(registrationDto.getEmail());
-        user.setDateOfBirth(registrationDto.getDateOfBirth());
-        user.setPassword(registrationDto.getPassword());
-
-        userRepository.save(user);
-
-
-    }
-
-
-    public void login(UserLoginDto userLoginDto) throws Exception{
-
-
-    }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return findByEmail(s);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return findByEmail(username);
     }
 }
