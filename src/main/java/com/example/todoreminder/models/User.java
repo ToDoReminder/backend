@@ -74,9 +74,9 @@ public class User implements UserDetails {
 
 
 
-    @OneToMany(mappedBy = "categoryid")
+    @OneToMany(mappedBy = "user")
     private List<Category> category;
-    @OneToMany(mappedBy = "taskid")
+    @OneToMany(mappedBy = "user")
     private List<Task> task;
 
 

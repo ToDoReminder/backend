@@ -25,9 +25,9 @@ public class Task {
     @Column(name = "is_completed", nullable = false)
     private boolean isCompleted;
     @OneToOne
-    @JoinColumn(name = "categoryid")
+    @JoinColumn(name = "category_id")
     private Category category;
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "user_id")
     private User user;
 }

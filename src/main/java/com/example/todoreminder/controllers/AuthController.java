@@ -4,12 +4,15 @@ import com.example.todoreminder.dtos.UserLoginDto;
 import com.example.todoreminder.dtos.UserRegistrationDto;
 import com.example.todoreminder.models.User;
 import com.example.todoreminder.services.AuthService;
+import com.example.todoreminder.services.AuthorizationService;
 import com.example.todoreminder.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 //@AllArgsConstructor
@@ -18,14 +21,16 @@ public class AuthController {
     private final UserService userService;
     private final AuthService authService;
 
-    public AuthController(UserService userService, AuthService authService) {
+    private final AuthorizationService authorizationService;
+
+    public AuthController(UserService userService, AuthService authService, AuthorizationService authorizationService) {
         this.userService = userService;
         this.authService = authService;
+        this.authorizationService = authorizationService;
     }
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody UserRegistrationDto registrationDto){
-
         return ResponseEntity.ok(authService.register(registrationDto));
     }
 
