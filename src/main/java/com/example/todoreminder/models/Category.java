@@ -22,8 +22,8 @@ public class Category {
     @Column(name = "title", nullable = false)
     private String title;
     @ManyToOne
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "taskid")
+    @OneToMany(mappedBy = "category")
     private List<Task> task;
 }
