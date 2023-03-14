@@ -1,6 +1,7 @@
 package com.example.todoreminder.config;
 
-import com.example.todoreminder.services.UserService;
+import com.example.todoreminder.filter.CustomRequestFilter;
+import com.example.todoreminder.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

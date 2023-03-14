@@ -1,4 +1,4 @@
-package com.example.todoreminder.models;
+package com.example.todoreminder.entity;
 
 
 import lombok.*;

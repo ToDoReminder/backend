@@ -1,4 +1,4 @@
-package com.example.todoreminder.models;
+package com.example.todoreminder.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -6,20 +6,21 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "users")
+
+
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
