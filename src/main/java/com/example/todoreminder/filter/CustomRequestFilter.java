@@ -4,7 +4,7 @@ package com.example.todoreminder.filter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.example.todoreminder.config.security.JwtTokenUtility;
+import com.example.todoreminder.config.JwtTokenUtility;
 import com.example.todoreminder.entity.User;
 import com.example.todoreminder.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;

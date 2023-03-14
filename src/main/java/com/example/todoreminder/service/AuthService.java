@@ -1,7 +1,7 @@
 package com.example.todoreminder.service;
 
 import com.example.todoreminder.config.PasswordEncoder;
-import com.example.todoreminder.config.security.JwtTokenUtility;
+import com.example.todoreminder.config.JwtTokenUtility;
 import com.example.todoreminder.entity.User;
 import com.example.todoreminder.mapper.UserMapper;
 import com.example.todoreminder.model.request.LoginRequest;

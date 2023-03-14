@@ -1,6 +1,6 @@
 package com.example.todoreminder.service;
 
-import com.example.todoreminder.config.security.JwtTokenUtility;
+import com.example.todoreminder.config.JwtTokenUtility;
 import com.example.todoreminder.entity.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

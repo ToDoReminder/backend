@@ -1,4 +1,4 @@
-package com.example.todoreminder.config.security;
+package com.example.todoreminder.config;
 
 
 import com.example.todoreminder.entity.User;
