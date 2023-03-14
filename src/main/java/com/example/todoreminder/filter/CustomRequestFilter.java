@@ -1,12 +1,12 @@
-package com.example.todoreminder.config;
+package com.example.todoreminder.filter;
 
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.example.todoreminder.config.security.JwtTokenUtility;
-import com.example.todoreminder.models.User;
-import com.example.todoreminder.services.UserService;
+import com.example.todoreminder.entity.User;
+import com.example.todoreminder.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

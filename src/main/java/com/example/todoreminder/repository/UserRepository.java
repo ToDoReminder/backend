@@ -1,6 +1,6 @@
-package com.example.todoreminder.repositories;
+package com.example.todoreminder.repository;
 
-import com.example.todoreminder.models.User;
+import com.example.todoreminder.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

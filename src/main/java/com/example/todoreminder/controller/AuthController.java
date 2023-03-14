@@ -1,18 +1,16 @@
-package com.example.todoreminder.controllers;
+package com.example.todoreminder.controller;
 
-import com.example.todoreminder.dtos.UserLoginDto;
-import com.example.todoreminder.dtos.UserRegistrationDto;
-import com.example.todoreminder.models.User;
-import com.example.todoreminder.services.AuthService;
-import com.example.todoreminder.services.AuthorizationService;
-import com.example.todoreminder.services.UserService;
+import com.example.todoreminder.entity.User;
+import com.example.todoreminder.model.request.LoginRequest;
+import com.example.todoreminder.model.request.RegisterRequest;
+import com.example.todoreminder.service.AuthService;
+import com.example.todoreminder.service.AuthorizationService;
+import com.example.todoreminder.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 //@AllArgsConstructor
@@ -30,13 +28,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody UserRegistrationDto registrationDto){
-        return ResponseEntity.ok(authService.register(registrationDto));
+    public ResponseEntity<User> register(@RequestBody RegisterRequest request){
+        return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginDto loginDto) throws Exception{
-        return ResponseEntity.ok(authService.login(loginDto));
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) throws Exception{
+        return ResponseEntity.ok(authService.login(request));
     }
 
 

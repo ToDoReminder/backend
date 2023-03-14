@@ -1,7 +1,7 @@
 package com.example.todoreminder.config.security;
 
 
-import com.example.todoreminder.models.User;
+import com.example.todoreminder.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
