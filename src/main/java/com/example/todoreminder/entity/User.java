@@ -2,6 +2,7 @@ package com.example.todoreminder.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,6 +36,7 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "date_of_birth", nullable = false)
     @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonIgnore
     private LocalDate dateOfBirth;
     @Column(name = "password", nullable = false)
     private String password;
