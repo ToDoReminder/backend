@@ -24,7 +24,7 @@ public class Task {
     private LocalTime createdTime;
     @Column(name = "is_completed", nullable = false)
     private boolean isCompleted;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
     @ManyToOne
