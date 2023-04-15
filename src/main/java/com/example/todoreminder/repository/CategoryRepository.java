@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-   //@Query("SELECT c FROM Category c WHERE c.user_id=?1")
+
    List<Category> findCategoryByUserUserid(Long userId);
 
 }
