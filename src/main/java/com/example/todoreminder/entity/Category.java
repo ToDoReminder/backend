@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "categories")
 @Entity
 public class Category {
@@ -20,7 +21,7 @@ public class Category {
     @Column(name = "title", nullable = false)
     private String title;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "userid")
     private User user;
     @OneToMany(mappedBy = "category")
     private List<Task> task;
