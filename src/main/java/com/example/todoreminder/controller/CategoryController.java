@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<?> deleteToDoItem(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.ok("Category is deleted successfully!");
     }
@@ -48,7 +48,7 @@ public class CategoryController {
     @PostMapping("/create/users/{userId}")
     public ResponseEntity<String> createCategoryToAUser(@PathVariable Long userId, @RequestBody CategoryRequest categoryRequest) throws  Exception {
         categoryService.createCategory(userId, categoryRequest);
-        return ResponseEntity.ok("Category is added to the user successfully!");
+        return ResponseEntity.ok("Cateogory is added to the user successfully!");
 
     }
 
