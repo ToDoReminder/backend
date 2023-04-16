@@ -9,6 +9,7 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tasks")
@@ -22,8 +23,10 @@ public class Task {
     private String title;
     private LocalDate createdDate;
     private LocalTime createdTime;
+    private LocalDate updatedDate = null;
+    private LocalTime updatedTime = null;
     @Column(name = "is_completed", nullable = false)
-    private boolean isCompleted;
+    private boolean isCompleted = false;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

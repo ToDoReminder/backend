@@ -43,10 +43,10 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
-    public CategoryDto updateCategory(CategoryDto categoryDto) {
-        Category category = categoryRepository.findById(categoryDto.getCategoryId()).orElseThrow(()
-                -> new EntityNotFoundException("Category not found by id: " + categoryDto.getCategoryId()));
-        category.setTitle(categoryDto.getTitle());
+    public CategoryDto updateCategory(Long categoryId, CategoryRequest categoryRequest) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(()
+                -> new EntityNotFoundException("Category not found by id: " + categoryId));
+        category.setTitle(categoryRequest.getTitle());
         Category updatedCategory = categoryRepository.save(category);
         return categoryMapper.categoryDto(updatedCategory);
     }
